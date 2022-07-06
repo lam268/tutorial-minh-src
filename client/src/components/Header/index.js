@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Button, Menu, MenuItem, TextField, Modal } from '@material-ui/core';
+import { Typography, Button, Menu, MenuItem, TextField, Modal, Select } from '@material-ui/core';
 import useStyles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, register, logout } from '../../redux/actions';
@@ -122,7 +122,7 @@ export default function Header() {
 
   const [search, setSearch] = React.useState('');
 
-  const [sort, setSort] = React.useState('');
+  const [sort, setSort] = React.useState('author');
 
   const searchPost = React.useCallback(() => {
     if (search.trim()) {
@@ -135,6 +135,10 @@ export default function Header() {
     dispatch(sortPosts.sortPostsRequest(sort));
   }, [dispatch, sort]);
 
+  const changeSort = (event) => {
+    setSort(event.target.value);
+    sortButton();
+  }
 
   return (
     <div style={{ "display": "relative", backgroundColor: "#3f51b5" }}>
@@ -166,7 +170,21 @@ export default function Header() {
           Search
         </Button>
       </form>
-
+      <Select
+        style={{
+          position: 'absolute',
+          left: "calc(35% - 76px)",
+          top: 7
+        }}
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={sort}
+        label="Age"
+        onChange={changeSort}
+      >
+        <MenuItem value={'author'}>Author</MenuItem>
+        <MenuItem value={"title"}>Title</MenuItem>
+      </Select>
       <Button
         style={{
           position: 'absolute',
@@ -182,21 +200,6 @@ export default function Header() {
         {isLogined ? userName : 'Login'}
       </Button>
       {!isLogined ? loginMenu : loginedMenu}
-      <Button
-        style={{
-          position: 'absolute',
-          right: "calc(70% - 76px)",
-          top: 7
-        }}
-        id="demo-positioned-button"
-        aria-controls={open ? 'demo-positioned-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onChange={(e) => setSort(e.target.value)}
-        onClick={sortButton}
-      >
-        {'Sort'}
-      </Button>
       <Modal
         open={openLogin}
         className={classes.form}

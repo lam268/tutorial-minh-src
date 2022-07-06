@@ -63,7 +63,6 @@ function* deletePostSaga(action) {
 function* sortPostsSaga(action) {
   try {
     const post = yield call(api.sortPosts, action.payload);
-    
     yield put(actions.sortPosts.sortPostsSuccess(post.data));
   } catch(err) {
     console.error(err);
