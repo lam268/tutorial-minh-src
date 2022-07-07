@@ -4,8 +4,8 @@ import * as api from '../../api';
 
 function* fetchPostsSaga(action) {
   try {
-    const posts = yield call(api.fetchPosts);
-    console.log('[posts]', posts);
+    console.log(action.payload, 'run 7')
+    const posts = yield call(api.fetchPosts, action.payload);
     yield put(actions.getPosts.getPostsSuccess(posts.data));
   } catch(err) {
     console.error(err);

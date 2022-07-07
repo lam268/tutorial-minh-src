@@ -4,8 +4,9 @@ import useStyles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, register, logout } from '../../redux/actions';
 import { authState$ } from '../../redux/selectors';
+import * as actions from '../../redux/actions';
 
-import { getPostsBySearch, sortPosts } from '../../redux/actions';
+import { getPostsBySearch } from '../../redux/actions';
 
 export default function Header() {
 
@@ -131,13 +132,12 @@ export default function Header() {
     }
   }, [dispatch, search]);
 
-  const sortButton = React.useCallback(() => {
-    dispatch(sortPosts.sortPostsRequest(sort));
-  }, [dispatch, sort]);
+  React.useEffect(() => {
+    dispatch(actions.getPosts.getPostsRequest(sort));
+  }, [dispatch]);
 
   const changeSort = (event) => {
     setSort(event.target.value);
-    sortButton();
   }
 
   return (
