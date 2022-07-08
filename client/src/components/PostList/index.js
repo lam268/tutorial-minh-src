@@ -11,7 +11,7 @@ export default function PostList() {
   const posts = useSelector(postsState$);
 
   React.useEffect(() => {
-    dispatch(actions.getPosts.getPostsRequest());
+    dispatch(actions.getPosts.getPostsRequest('author'));
   }, [dispatch]);
   
   return (

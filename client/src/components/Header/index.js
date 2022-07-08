@@ -134,7 +134,7 @@ export default function Header() {
 
   React.useEffect(() => {
     dispatch(actions.getPosts.getPostsRequest(sort));
-  }, [dispatch]);
+  }, [dispatch, sort]);
 
   const changeSort = (event) => {
     setSort(event.target.value);

@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb';
 
 export const getPosts = async (req, res) => {
   try {
-    const { sort } = req || 'title';
+    const { sort } = req.query || 'author';
     if (sort === 'title') {
       const posts = await PostModel.find().sort({
         title: 1
